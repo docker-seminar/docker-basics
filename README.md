@@ -17,7 +17,15 @@
 
 # What is Docker?
 
-https://docs.docker.com/get-started/docker-overview/
+Docker는 애플리케이션을 개발, 배포, 실행할 수 있는 오픈 플랫폼으로, 컨테이너라는 독립된 환경에서 애플리케이션을 실행합니다.
+이를 통해 인프라와 애플리케이션을 분리하여 소프트웨어를 신속하게 제공할 수 있습니다.
+
+## Docker의 주요 구성 요소
+## Docker 의 주요 구성 요소
+
+## Docker 활용 사례
+
+## Docker 의 기술적 기반
 
 # Docker Concepts
 
