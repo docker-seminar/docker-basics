@@ -4,6 +4,31 @@
 
 # How to learn
 
+## 처음 시작하기
+
+1. main branch 로부터 자신만의 main 브랜치를 생성한다.
+   - 브랜치 이름은 다음과 같이 설정한다: 본인 이름/main
+   - 예시: sbk/main
+
+   1. main 브랜치로 checkout
+      ```bash
+      git checkout main
+      ```
+   2. 자신만의 main 브랜치 생성 및 체크아웃
+      ```bash
+      git checkout -b sbk/main
+      ```
+   3. 브랜치 생성 확인
+      ```bash
+      git branch
+      ```
+   4. 원격 저장소로 푸시하기
+      ```bash
+      git push -u origin sbk/main
+      ```
+
+## 진행하기
+
 1. 한 주제에 대해 브랜치를 생성한다
    - 브랜치 이름은 다음과 같이 설정한다: 본인 이름/종류/브랜치 이름
    - 예시 브랜치 이름: sbk/docs/what-is-docker
@@ -14,6 +39,8 @@
       한국어 설정 가능)
     - 리스트나 테이블 등 적극 활용하기
 4. Commit, push 그리고 pull request 를 생성한다.
+   - PR 생성 시에 base 는 자신의 main 브랜치로 지정한다.
+   - 예시: sbk/main <- sbk/docs/what-is-docker
 
 # What is Docker?
 
