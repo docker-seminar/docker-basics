@@ -2,6 +2,17 @@
 
 도커 기초 익히기
 
+# How to learn
+
+1. 한 주제에 대해 브랜치를 생성한다
+    - 예시 브랜치 이름: docs/what-is-docker
+2. 해당 주제에 포함된 링크로 들어간다. (필요한 경우 브라우저의 번역 기능을 이용)
+3. 마크다운을 이용해 페이지의 내용을 정리한다.
+    - [깃허브 마크다운 안내](https://docs.github.com/ko/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) (
+      한국어 설정 가능)
+    - 리스트나 테이블 등 적극 활용하기
+4. Commit, push 그리고 pull request 를 생성한다.
+
 # What is Docker?
 
 https://docs.docker.com/get-started/docker-overview/
