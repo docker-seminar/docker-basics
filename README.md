@@ -5,7 +5,9 @@
 # How to learn
 
 1. 한 주제에 대해 브랜치를 생성한다
-    - 예시 브랜치 이름: docs/what-is-docker
+   - 브랜치 이름은 다음과 같이 설정한다: 본인 이름/종류/브랜치 이름
+   - 예시 브랜치 이름: sbk/docs/what-is-docker
+   - sbk 가, 문서 작업 (주로 `.md` 파일), what-is-docker 내용 수정하는 브랜치
 2. 해당 주제에 포함된 링크로 들어간다. (필요한 경우 브라우저의 번역 기능을 이용)
 3. 마크다운을 이용해 페이지의 내용을 정리한다.
     - [깃허브 마크다운 안내](https://docs.github.com/ko/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) (
