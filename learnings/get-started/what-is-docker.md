@@ -1,1 +1,1 @@
-# Wha tis Docker?
+# What is Docker?
