@@ -42,6 +42,58 @@
    - PR 생성 시에 base 는 자신의 main 브랜치로 지정한다.
    - 예시: sbk/main <- sbk/docs/what-is-docker
 
+## Git Graph
+
+```mermaid
+---
+title: Initial Setup
+---
+gitGraph
+   commit
+   commit
+   branch infra/add-issue-template
+   branch sbk/main
+   checkout sbk/main
+   branch sbk/docs/get-started/what-is-docker
+   checkout sbk/docs/get-started/what-is-docker
+   commit
+   commit
+   commit
+   checkout sbk/main
+   merge sbk/docs/get-started/what-is-docker
+   branch sbk/docs/get-started/introduction
+   checkout sbk/docs/get-started/introduction
+   commit
+   checkout main
+   checkout infra/add-issue-template
+   commit
+   commit
+   checkout main
+   merge infra/add-issue-template
+   checkout sbk/docs/get-started/introduction
+   commit
+   checkout sbk/main
+   merge sbk/docs/get-started/introduction
+   merge main
+   checkout main
+   checkout sbk/main
+   branch sbk/docs/get-started/docker-concepts
+   checkout sbk/docs/get-started/docker-concepts
+   commit
+   commit
+   commit
+   checkout sbk/main
+   merge sbk/docs/get-started/docker-concepts
+   checkout main
+   commit
+```
+
+1. (최초) `main` 브랜치로부터 `사용자명/main` 브랜치 생성
+2. `사용자명/main` 브랜치로부터 `사용자명/분류/대주제/소주제` 브랜치 생성
+3. 커밋 해가며 작업
+4. `사용자명/분류/대주제/소주제` 브랜치에서 `사용자명/main` 브랜치로 Pull Request 생성
+5. 병합
+
 ## 진행 순서
 
 - [해당 파일](./learnings/README.md)을 참조하여 진행
