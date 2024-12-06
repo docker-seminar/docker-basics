@@ -10,3 +10,4 @@
    3. [Docker concepts](./get-started/docker-concepts.md)
 2. [Docker manuals](./docker-manuals/README.md)
     1. [Docker Engine](./docker-manuals/docker-engine/README.md)
+3. [Dockerfile Reference](./dockerfile-reference/README.md)

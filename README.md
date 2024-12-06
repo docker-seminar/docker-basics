@@ -98,11 +98,6 @@ gitGraph
 
 - [해당 파일](./learnings/README.md)을 참조하여 진행
 
-# Dockerfile Reference
-
-Dockerfile 작성
-https://docs.docker.com/reference/dockerfile/#label
-
 # Docker in GitHub
 
 https://github.com/docker/build-push-action
