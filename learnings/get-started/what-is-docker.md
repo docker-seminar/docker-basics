@@ -5,6 +5,13 @@ Docker 는 애플리케이션을 개발, 배포, 실행할 수 있는 오픈 플
 
 # Docker 의 주요 구성 요소
 
+| 구성 요소           | 설명                                                                         |
+|-----------------|----------------------------------------------------------------------------|
+| Docker Daemon   | dockerd 로 불리며, Docker API 요청을 수신하고 이미지, 컨테이너, 네트워크, 볼륨 등의 Docker 객체를 관리    |
+| Docker Client   | docker 명령어를 통해 Docker Daemon 과 상호작용할 수 있는 주요 인터페이스                         |
+| Docker Desktop  | Mac, Windows, 그리고 Linux 환경에서 컨테이너화된 애플리케이션과 마이크로서비스를 구축하고 공유할 수 있는 애플리케이션  |
+| Docker Registry | Docker 이미지를 저장하는 공간으로, 기본적으로 Docker Hub 를 사용하며, 필요에 따라 개인 레지스트리를 운영할 수도 있음 |
+
 # Docker 활용 사례
 
 # Docker 의 기술적 기반
