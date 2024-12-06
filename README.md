@@ -42,6 +42,10 @@
    - PR 생성 시에 base 는 자신의 main 브랜치로 지정한다.
    - 예시: sbk/main <- sbk/docs/what-is-docker
 
+## 진행 순서
+
+- [해당 파일](./learnings/README.md)을 참조하여 진행
+
 # Dockerfile Reference
 
 Dockerfile 작성
