@@ -4,7 +4,9 @@
 
 ## Container
 
-https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/
+- Docker Container 는 애플리케이션과 그 종속성을 함께 패키징하여 격리된 환경에서 실행할 수 있는 기술
+    - **패키징**: 애플리케이션과 실행에 필요한 모든 요소를 하나의 독립된 단위로 묶는 과정을 의미
+- 개발, 테스트, 배포 환경 간의 일관성을 유지하고, 시스템 간의 충돌을 방지
 
 ## Image
 
