@@ -1,4 +1,5 @@
 # What is Docker? / Docker란 무엇인가?
+
 - Docker는 애플리케이션 개발, 배포, 실행을 위한 개방형 플랫폼으로, 컨테이너 기술을 기반으로 함
 - 애플리케이션과 인프라 분리로 빠른 소프트웨어 제공 가능, 이는 개발과 운영 간의 격차를 줄임
 - 코드 작성부터 프로덕션 실행까지의 지연 시간 감소, 이는 개발 주기를 단축시키고 생산성을 향상시킴
@@ -47,24 +48,62 @@ Docker는 컨테이너의 수명 주기를 관리하기 위한 도구와 플랫�
 - REST API를 통한 통신
 - Docker Compose: 다중 컨테이너 애플리케이션 관리 도구
 
-## The Docker daemon
+## The Docker daemon (dockerd) / 도커 데몬
 - Docker API 요청 수신 및 처리
-- Docker 객체(이미지, 컨테이너, 네트워크, 볼륨) 관리
+- Docker 객체(이미지, 컨테이너, 네트워크, 볼륨) 관리 (building, running, and distributing)
 - 다른 데몬과의 통신을 통한 서비스 관리
 - Docker의 핵심 백엔드 프로세스
 
-## The Docker client
+## The Docker client (docker) / 도커 클라이언트
 - 사용자와 Docker 시스템 간의 주요 인터페이스
 - 명령어를 통한 Docker 데몬과의 상호작용
 - Docker API 사용
 - 여러 Docker 데몬과 통신 가능
 - 사용자 친화적인 명령줄 인터페이스 제공
 
-## Docker Desktop
+## Docker Desktop / 도커 데스크탑
+- 다양한 운영 체제에서 사용 가능한 통합 Docker 환경
+- 컨테이너화된 애플리케이션 개발 및 배포를 위한 필수 도구 포함
+- Docker daemon (dockerd), the Docker client (docker), Docker Compose, Docker Content Trust, Kubernetes, and Credential Helper
 
-## Docker registries
+## Docker registries / 도커 레지스트리
+- Docker 레지스트리는 Docker 이미지를 저장하는 곳
+- Docker Hub: 기본 공개 레지스트리 
+- 프라이빗 레지스트리 운영 가능 
+- docker pull, docker run, docker push 명령어로 이미지 관리
 
-## Docker objects
+## Docker objects / 도커 객체
+Docker를 사용할 때 이미지, 컨테이너, 네트워크, 볼륨, 플러그인 등의 객체를 생성하고 사용
 
+### Images / 이미지
+이미지는 Docker 컨테이너를 생성하기 위한 읽기 전용 템플릿입니다. 보통 다른 이미지를 기반으로 하며 추가적인 사용자 정의를 포함.
+- 읽기 전용 템플릿
+- 다른 이미지 기반으로 생성 가능
+- Dockerfile을 통한 이미지 생성
+- 레이어 구조로 효율적인 저장 및 전송
 
-# The underlying technology
+### Containers / 컨테이너
+컨테이너는 이미지의 실행 가능한 인스턴스. Docker API나 CLI를 사용하여 컨테이너를 생성, 시작, 중지, 이동 또는 삭제할 수 있다.
+- 이미지의 실행 가능한 인스턴스 
+- 네트워크 연결, 스토리지 연결 가능 
+- 상대적으로 격리된 환경에서 실행 
+- 상태 변경은 영구 저장소에 저장되지 않으면 사라짐
+
+`Docker run` 명령어 예시:<br>
+`docker run -i -t ubuntu /bin/bash` 명령어를 실행하면 다음과 같은 과정이 진행:
+1. 로컬에 ubuntu 이미지가 없으면 레지스트리에서 다운로드
+2. 새 컨테이너 생성
+3. 읽기 쓰기 파일 시스템 할당
+4. 네트워크 인터페이스 생성 및 IP 주소 할당
+5. 컨테이너 시작 및 /bin/bash 실행
+6. `/bin/bash` 를 종료 하기 위해 `exit`하면 container 는 정지 되지만 제거 되지 않는다. 추후 제거 또는 재시작 가능.
+
+# The underlying technology / 기반 기술
+Docker는 Go 프로그래밍 언어로 작성되었으며, Linux 커널의 여러 기능을 활용하여 기능을 제공합니다. Docker는 네임스페이스라는 기술을 사용하여 컨테이너라고 하는 격리된 작업 공간을 제공합니다.
+- Go 언어로 작성
+- Linux 커널 기능 활용<sup>*</sup>
+- 네임스페이스를 통한 컨테이너 격리<sup>*</sup>
+- 각 컨테이너 측면이 별도의 네임스페이스에서 실행되어 접근 제한<sup>*</sup>
+> 문서에서 다루고 있지는 않지만 Windows 기반 Container/Docker 는
+> Linux 커널 기능인 cgroup, namespace 대신 윈도우 커널의 HCS (Host Compute Service)를 사용.
+> 또한 격리 방식도 프로세스 격리 방식과 Hyper-V 격리 방식으로 나누어짐.
