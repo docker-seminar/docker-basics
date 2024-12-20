@@ -1,2 +1,2 @@
 FROM node:alpine
-CMD ["node", "-e", "console.log('Hello, World!')"]
+CMD ["node", "-e", "console.log('Bye, World!')"]
