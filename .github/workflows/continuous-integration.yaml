@@ -35,7 +35,7 @@ jobs:
         with:
           name: hello-world
           path: /tmp
-      - name: Load image
+      - name: Run Container
         run: |
           docker load --input /tmp/hello-world.tar
-          docker image ls -a
+          docker run hello-world:latest
