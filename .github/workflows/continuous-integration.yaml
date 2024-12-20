@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - src/Dockerfile
+      - .github/workflows/continuous-integration.yaml
 jobs:
   build:
     name: Build Docker Image
