@@ -11,6 +11,16 @@ jobs:
     steps:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
+      - name: Build and export
+        uses: docker/build-push-action@v6
+        with:
+          tags: hello-world:latest
+          outputs: type=docker,dest=/tmp/hello-world.tar
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hello-world
+          path: /tmp/hello-world.tar
   run:
     name: Run Docker Container
     needs: build
