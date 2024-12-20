@@ -1,5 +1,5 @@
 name: Continuous Integration
-run-name: Testing the build of a Docker image and running the container on ${{ github.ref_name }} by @${{ github.actor }}
+run-name: ${{ github.event.head_commit.message }}
 on:
   push:
     paths:
