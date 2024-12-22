@@ -69,16 +69,31 @@ Docker 클라이언트와 데몬은 동일한 시스템에서 실행할 수 있�
 
 ### The Docker daemon
 
+Docker 데몬은 컨테이너를 빌드, 실행, 관리하는 백그라운드 프로세스입니다.
+
 ### The Docker client
+
+Docker 클라이언트는 사용자가 명령어를 입력하여 데몬과 상호작용하는 인터페이스입니다.
 
 ### Docker Desktop
 
+Docker Desktop은 로컬 환경에서 Docker를 실행할 수 있게 해주는 애플리케이션으로, Windows와 macOS에서 사용 가능합니다.
+
 ### Docker registries
+
+Docker 레지스트리는 컨테이너 이미지를 저장하고 배포하는 저장소로, Docker Hub가 대표적입니다.
 
 ### Docker objects
 
-#### Images
+Docker에서 관리하는 단위로, 이미지와 컨테이너가 주요 객체입니다.
 
-#### Containers
+- 이미지는 컨테이너 실행에 필요한 파일 시스템과 설정을 담고 있는 템플릿입니다.
+- 컨테이너는 이미지를 기반으로 실행되는 독립적인 애플리케이션 실행 환경입니다.
 
 ## The underlying technology
+
+Docker는 Go 언어로 작성되었으며, Linux 커널의 여러 기능을 활용합니다.
+
+- Namespaces: 컨테이너라는 독립적인 작업 공간을 제공하기 위해 사용됩니다.
+  컨테이너가 실행되면 Docker는 해당 컨테이너를 위한 네임스페이스를 생성합니다.
+- 격리 레이어: 각 컨테이너는 별도의 네임스페이스에서 실행되며, 네임스페이스 밖의 리소스에 접근이 제한됩니다.
