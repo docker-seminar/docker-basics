@@ -31,6 +31,7 @@ https://docs.docker.com/reference/dockerfile/
 2. `/hands-on/[카테고리]/##` 디렉토리 생성
     - 예: `/hands-on/dockerfile-reference/01`
 3. 해당 키워드가 포함된 최소한의 Dockerfile 작성
+   - 예시 파일명: `/handson/dockerfile-reference/01/Dockerfile`
     - 예 1:
    ```Dockerfile
    # `FROM` 키워드가 포함된 최소한의 Dockerfile 작성
