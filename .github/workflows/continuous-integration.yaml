@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - src/Dockerfile
+      - hands-on/**/Dockerfile
       - .github/workflows/continuous-integration.yaml
 jobs:
   build:
