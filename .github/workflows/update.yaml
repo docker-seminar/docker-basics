@@ -11,6 +11,9 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
       - name: Retrieve All Personal Branches Matching `**/main`
         id: list_branches
         uses: actions/github-script@v7
@@ -35,3 +38,50 @@ jobs:
             }
             
             core.setOutput('branches', JSON.stringify(personalMainBranches))
+      - name: Find branches that can be updated without conflicts
+        id: updateable_branches
+        run: |
+          MAIN_BRANCH_SHA=$(git rev-parse main)
+          PERSONAL_BRANCHES=$(echo '${{ steps.list_branches.outputs.branches }}' | jq -r '.[]')
+
+          echo "Finding branches that can be fast-forwarded..."
+          > updateable_branches.txt
+          for branch in $PERSONAL_BRANCHES; do
+            echo "Checking branch: $branch"
+            git fetch origin $branch
+
+            # Check if the branch is behind or can be fast-forwarded
+            if git merge-base --is-ancestor origin/$branch $MAIN_BRANCH_SHA; then 
+              echo "$branch" >> updateable_branches.txt
+              echo "Branch $branch can be fast-forwarded."
+            else
+              echo "Branch $branch is not a direct ancestor. Checking for conflicts..."
+
+              # Create a temporary branch to test the merge
+              git checkout -b temp-merge-branch $MAIN_BRANCH_SHA
+              MERGE_OUTPUT=$(git merge --no-commit --no-ff origin/$branch 2>&1 || true ) # Both standard output and errors (2>&1) are redirected to the variable MERGE_OUTPUT
+
+              # Check if merge output indicates conflicts
+              if echo "$MERGE_OUTPUT" | grep -q "CONFLICT"; then
+                # Capture the conflict files
+                CONFICT_FILES=$(git diff --name-only --diff-filter=U)
+                echo "Conflicts in branch $branch:"
+                echo "$CONFLICT_FILES"
+              else
+                # The branch has no conflicts because the changes in $branch and main do not overlap.
+                # However, it canot be fast-forwarded because $branch ah sdiverged from main and contains commits that are not in main.
+                # Fast-forwarding would overwrite the history of $branch, which is not allowed.
+                echo "Branch $branch has no conflict but cannot be fast-forwarded."
+              fi
+          
+              # Cleanup the temporary branch
+              git checkout main
+              git branch -D temp-merge-branch || true
+            fi
+          done
+          
+          if [ -s updateable_branches.txt]; then
+            echo "updateable_branches=$(cat updateable_branches.txt)" >> $GITHUB_OUTPUT
+          else
+            echo "No branches can be fast-forwarded."
+          fi
