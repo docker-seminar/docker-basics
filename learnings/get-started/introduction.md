@@ -15,7 +15,7 @@ docker run -d -p 8080:80 docker/welcome-to-docker
 
 ## Docker Desktop을 사용하여 컨테이너 관리
 ### 1. Docker Desktop 실행
-### 2. 왼쪽 사이드바에 **컨테이너 필드** 선택
+### 2. 왼쪽 사이드바에 컨테이너 필드 선택
 ### 3. Exec 탭
 Shell에 엑세스 가능
 ### 4. Inspect 탭
