@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - main
-      - infra/38 # Todo remove this branch
 permissions:
   contents: write
 jobs:
