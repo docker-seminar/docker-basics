@@ -85,3 +85,13 @@ jobs:
           else
             echo "No branches can be fast-forwarded."
           fi
+      - name: Fast-Forward Branches
+        if: steps.updateable_branches.outputs.updateable_branches
+        run: |
+          UPDATEABLE_BRANCHES=$(echo '${{ steps.updateable_branches.outputs.updateable_branches }}' | tr '\n' ' ')
+          
+          echo "Fast-forwarding the following branches: $UPDATEABLE_BRANCHES"
+          
+          for branch in $UPDATEABLE_BRANCHES; do
+            echo "Fast-forwarding branch: $branch"
+          done
