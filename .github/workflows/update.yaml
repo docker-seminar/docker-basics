@@ -41,49 +41,76 @@ jobs:
       - name: Find branches that can be updated without conflicts
         id: updateable_branches
         run: |
+          # 1. Determine the SHA of the 'main' branch
           MAIN_BRANCH_SHA=$(git rev-parse main)
+          
+          # 2. Parse the JSON array of personal branches
           PERSONAL_BRANCHES=$(echo '${{ steps.list_branches.outputs.branches }}' | jq -r '.[]')
 
-          echo "Finding branches that can be fast-forwarded..."
+          echo "Finding branches that can be fast-forwarded or need merging..."
+
+          # 3. Clear (or create) tracking files
           > updateable_branches.txt
+          > conflict_free_diverged_branches.txt
+
           for branch in $PERSONAL_BRANCHES; do
-            echo "Checking branch: $branch"
+            echo "::group::Checking branch: $branch"
             git fetch origin $branch
 
-            # Check if the branch is behind or can be fast-forwarded
+            # Determine the SHA of the branch's HEAD
+            BRANCH_HEAD_SHA=$(git rev-parse origin/$branch)
+
+            # Check if the branch is already up to date with main
+            if [ "$(git merge-base --is-ancestor $MAIN_BRANCH_SHA $BRANCH_HEAD_SHA && echo true)" = "true" ]; then
+              echo "Branch $branch is already up to date with main. Skipping."
+              continue
+            fi
+
+            # Check if the branch can be fast-forwarded:
             if git merge-base --is-ancestor origin/$branch $MAIN_BRANCH_SHA; then 
               echo "$branch" >> updateable_branches.txt
               echo "Branch $branch can be fast-forwarded."
             else
               echo "Branch $branch is not a direct ancestor. Checking for conflicts..."
 
-              # Create a temporary branch to test the merge
+              # Create a temporary branch from 'main' to test the merge
               git checkout -b temp-merge-branch $MAIN_BRANCH_SHA
-              MERGE_OUTPUT=$(git merge --no-commit --no-ff origin/$branch 2>&1 || true ) # Both standard output and errors (2>&1) are redirected to the variable MERGE_OUTPUT
 
-              # Check if merge output indicates conflicts
+              MERGE_OUTPUT=$(git merge --no-commit --no-ff origin/$branch 2>&1 || true) # Both standard output and errors (2>&1) are redirected to the variable MERGE_OUTPUT
               if echo "$MERGE_OUTPUT" | grep -q "CONFLICT"; then
                 # Capture the conflict files
-                CONFICT_FILES=$(git diff --name-only --diff-filter=U)
+                CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
                 echo "Conflicts in branch $branch:"
                 echo "$CONFLICT_FILES"
               else
-                # The branch has no conflicts because the changes in $branch and main do not overlap.
-                # However, it canot be fast-forwarded because $branch ah sdiverged from main and contains commits that are not in main.
-                # Fast-forwarding would overwrite the history of $branch, which is not allowed.
+                # No conflicts but the branch cannot be fast-forwarded
+                echo "$branch" >> conflict_free_diverged_branches.txt
                 echo "Branch $branch has no conflict but cannot be fast-forwarded."
               fi
-          
+
               # Cleanup the temporary branch
               git checkout main
               git branch -D temp-merge-branch || true
             fi
+            echo "::endGroup::"
           done
-          
-          if [ -s updateable_branches.txt]; then
-            echo "updateable_branches=$(cat updateable_branches.txt)" >> $GITHUB_OUTPUT
+
+          # Convert fast-forwardable branches into a single line
+          if [ -s updateable_branches.txt ]; then
+            SINGLE_LINE="$(paste -s -d ' ' updateable_branches.txt)"
+            echo "Branches that can be fast-forwarded (single line): $SINGLE_LINE"
+            echo "updateable_branches=$SINGLE_LINE" >> $GITHUB_OUTPUT
           else
-            echo "No branches can be fast-forwarded."
+            echo "::notice::No branches can be fast-forwarded."
+          fi
+
+          # Convert conflict-free diverged branches into a single line
+          if [ -s conflict_free_diverged_branches.txt ]; then
+            SINGLE_LINE="$(paste -s -d ' ' conflict_free_diverged_branches.txt)"
+            echo "Conflict-free diverged branches (single line): $SINGLE_LINE"
+            echo "conflict_free_diverged_branches=$SINGLE_LINE" >> $GITHUB_OUTPUT
+          else
+            echo "No conflict-free diverged branches found."
           fi
       - name: Fast-Forward Branches
         if: steps.updateable_branches.outputs.updateable_branches
