@@ -5,6 +5,8 @@ on:
     branches:
       - main
       - infra/38 # Todo remove this branch
+permissions:
+  contents: write
 jobs:
   update_personal_branches:
     runs-on: ubuntu-latest
@@ -14,6 +16,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: main
+          token: ${{ secrets.ACTIONS_PAT }}
       - name: Retrieve All Personal Branches Matching `**/main`
         id: list_branches
         uses: actions/github-script@v7
@@ -115,10 +118,68 @@ jobs:
       - name: Fast-Forward Branches
         if: steps.updateable_branches.outputs.updateable_branches
         run: |
+          # 1. Retrieve the single-line list of updateable branches
           UPDATEABLE_BRANCHES=$(echo '${{ steps.updateable_branches.outputs.updateable_branches }}' | tr '\n' ' ')
           
           echo "Fast-forwarding the following branches: $UPDATEABLE_BRANCHES"
-          
+
+          # 2. Loop through each space-separated branch
           for branch in $UPDATEABLE_BRANCHES; do
-            echo "Fast-forwarding branch: $branch"
+            echo "::group::Fast-forwarding branch: $branch"
+          
+            # a) Fetch the remote branch to ensure we have the leatest commits locally
+            git fetch origin $branch
+
+            # b) Create or reset a local branch named "$branch" to match "origin/$branch"
+            git checkout -B $branch origin/$branch
+          
+            # c) Attempt a fast-forward merge to origin/main
+            #    Using --ff-only ensures that Git will not crate a merge commit.
+            git fetch origin main
+            git merge --ff-only origin/main || {
+              echo "::error::Failed to fast-forward $branch. This should not happen for branches makred updateable."
+              exit 1
+            }
+
+            # d) Push the updated branch back to the remote
+            git push origin $branch || {
+              echo "::error::Failed to push updates for branch: $branch."
+              exit 1
+            }
+            echo "::endGroup::"
+          done
+      - name: Merge Diverged Conflict-Free Branches
+        if: steps.updateable_branches.outputs.conflict_free_diverged_branches
+        run: |
+          # Retrieve the list of conflict-free diverged branches
+          DIVERGED_BRANCHES=$(echo '${{ steps.updateable_branches.outputs.conflict_free_diverged_branches }}' | tr '\n' ' ')
+
+          echo "Merging the following conflict-free diverged branches: $DIVERGED_BRANCHES"
+          
+          # Configure Git committer identity
+          git config user.name "github-actions[bot]"
+          git config user.email "luxorienskim@gmail.com"
+          
+          for branch in $DIVERGED_BRANCHES; do
+            echo "::group::Processing branch: $branch"
+          
+            git fetch origin $branch
+          
+            # Checkout the branch locally, resetting it to the remote version
+            git checkout -B $branch origin/$branch
+          
+            git merge origin/main \
+              --message "Merging main into $branch to synchronize changes" \
+              --message "This update was performed automatically by the update workflow." || {
+                echo "::error::Unexpected error occurred while merging $branch. Aborting."
+                exit 1
+              }
+
+            git push origin $branch || {
+              echo "::error::Faield to push merged updates for branch: $branch."
+              exit 1
+            }
+          
+            echo "Successfully merged and pushed updates for branch: $branch."
+            echo "::endGroup::"
           done
