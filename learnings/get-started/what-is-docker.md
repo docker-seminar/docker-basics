@@ -39,7 +39,7 @@ Docker는 컨테이너의 라이프사이클을 관리하기 위한 도구와 �
 
 - 빠르고 일관적인 애플리케이션 운영
   Docker는 `로컬 컨테이너`를 사용하여 `표준화된 환경`에서 작업할 수 있도록 개발 라이프사이클을 간소화합니다.
-  지속적 통합(Continuous Integration) 및 지속적 배포(Continuous Delivery, CI/CD) 워크플로우에 매우 유용합니다.
+  지속적 통합(Continuous Integration) 및 지속적 배포(Continuous Delivery) CI/CD 워크플로우에 매우 유용합니다.
 
   1. 개발자들이 로컬에서 코드를 작성하고, Docker 컨테이너를 통해 동료와 작업물을 공유합니다.
   2. Docker를 사용하여 애플리케이션을 테스트 환경에 배포하고, 자동화 및 수동 테스트를 실행합니다.
