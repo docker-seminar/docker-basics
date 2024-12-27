@@ -17,6 +17,16 @@ https://docs.docker.com/reference/dockerfile/
 3. FROM --platform=\<platform\> \<image\>:\<tag\>
    - https://docs.docker.com/reference/dockerfile/#from
    - `platform` 플래그가 포함된 최소한의 Dockerfile 작성
+4. RUN - Shell form
+   - https://docs.docker.com/reference/dockerfile/#run
+   - Shell form 의 `RUN` 키워드가 포함된 최소한의 Dockerfile 작성
+   - escape 를 사용하여 2 줄 이상의 명령어 사용
+5. RUN - Exec form
+   - https://docs.docker.com/reference/dockerfile/#run
+   - Exec form 의 `RUN` 키워드가 포함된 최소한의 Dockerfile 작성
+6. RUN - Shell form with Here-Documents
+   - https://docs.docker.com/reference/dockerfile/#here-documents
+   - Here-documents 를 사용하여 2줄 이상의 `RUN` 명령어가 포함된 Dockerfile 작성
 
 # 방법
 
