@@ -27,6 +27,16 @@ https://docs.docker.com/reference/dockerfile/
 6. RUN - Shell form with Here-Documents
    - https://docs.docker.com/reference/dockerfile/#here-documents
    - Here-documents 를 사용하여 2줄 이상의 `RUN` 명령어가 포함된 Dockerfile 작성
+7. RUN --mount=type=cache
+   - https://docs.docker.com/reference/dockerfile/#run---mounttypecache
+   - RUN --mount=type-cache 를 사용하여 종속성이 변경 전후 테스트 가능한 Dockerfile 작성
+   - cf. https://docs.docker.com/build/cache/optimize/#use-cache-mounts
+   - 로컬에서 우선 테스트
+   - Cache hit 을 측정하기 위한 전용 워크플로우 작성이 필요할 수 있음
+8. CMD
+   - https://docs.docker.com/reference/dockerfile/#cmd
+   - CMD 가 포함된 최소한의 Dockerfile 작성
+   - RUN 과 CMD 차이 확인
 
 # 방법
 
