@@ -42,7 +42,7 @@ https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-contain
 
 이 두 가지 원칙 덕분에 기존 이미지를 확장하거나 변경 사항을 추가할 수 있습니다.
 
-### Finding Images
+### Finding Images in Docker Hub
 
 Docker Hub는 이미지를 저장하고 배포하기 위한 기본 글로벌 마켓플레이스입니다.
 
@@ -58,6 +58,31 @@ Docker Hub는 이미지를 저장하고 배포하기 위한 기본 글로벌 마
 https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/
 
 ## Registry
+
+이미지 레지스트리는 컨테이너 이미지를 저장하고 공유하기 위한 `중앙 집중화된 저장소`입니다.
+레지스트리는 공개(Public) 또는 비공개(Private)로 운영될 수 있습니다.
+Docker Hub는 누구나 사용할 수 있는 공개 레지스트리이며, 기본 레지스트리로 설정되어 있습니다.
+
+Docker Hub 외에도 다양한 컨테이너 레지스트리가 제공됩니다.
+
+- Amazon Elastic Container Registry (ECR)
+- Azure Container Registry (ACR)
+- Google Container Registry (GCR)
+
+로컬 시스템이나 조직 내에서 실행할 수 있는 개인 레지스트리(Private Registry)도 운영할 수 있습니다.
+
+- Harbor
+- JFrog Artifactory
+- GitLab Container Registry
+
+### 레지스트리(Registry)와 리포지토리(Repository)의 차이점
+
+- 레지스트리(Registry)
+  컨테이너 이미지를 저장하고 관리하는 중앙 집중화된 위치입니다.
+
+- 리포지토리(Repository)
+  레지스트리 안에서 관련된 컨테이너 이미지를 모아놓은 컬렉션입니다.
+  프로젝트별로 이미지를 정리하는 폴더와 같은 개념입니다. 하나의 리포지토리는 하나 이상의 컨테이너 이미지를 포함합니다.
 
 https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-registry/
 
