@@ -37,6 +37,11 @@ https://docs.docker.com/reference/dockerfile/
    - https://docs.docker.com/reference/dockerfile/#cmd
    - CMD 가 포함된 최소한의 Dockerfile 작성
    - RUN 과 CMD 차이 확인
+9. EXPOSE
+   - https://docs.docker.com/reference/dockerfile/#expose
+   - `EXPOSE` 키워드가 포함된 최소한의 Dockerfile 작성
+   - 테스트를 위해 nginx 등의 이미지 사용
+   - 도커 실행 시 `-P` 와 `-p` 플래그 차이에 대해 이해하기
 
 # 방법
 
