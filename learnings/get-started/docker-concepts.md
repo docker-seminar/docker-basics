@@ -88,6 +88,15 @@ https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-registr
 
 ## Docker Compose
 
+Docker Compose를 사용하면 `모든 컨테이너와 그 설정`을 `단일 YAML 파일에 정의`할 수 있습니다.
+이 파일을 코드 저장소에 포함하면, 저장소를 복제(clone)한 모든 사람이 단일 명령어로 실행 환경을 설정할 수 있습니다.
+
+이는 더 복잡한 작업, 예를 들어 데이터베이스, 메시지 큐, 캐시 또는 다양한 서비스를 실행하려는 상황에 유용합니다.
+각 컨테이너가 하나의 작업만 수행하고 그것을 잘 수행할 수 있도록 합니다.
+
+Docker Compose는 실행 중인 컨테이너를 정의하는 선언형 도구입니다.
+변경 사항이 있다면 docker compose up 명령어를 다시 실행하면, Compose가 파일의 변경 사항을 지능적으로 반영합니다.
+
 https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-docker-compose/
 
 # Building Images
