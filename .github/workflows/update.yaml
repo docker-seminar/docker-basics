@@ -1,4 +1,4 @@
-name: Inform updating personal main branches
+name: Automatically Update Personal Main Branches
 run-name: Updating Personal Main Branches on ${{ github.ref_name }}
 on:
   push:
