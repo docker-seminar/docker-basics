@@ -78,14 +78,15 @@ jobs:
               # Create a temporary branch from 'main' to test the merge
               git checkout -b temp-merge-branch $MAIN_BRANCH_SHA
 
-              MERGE_OUTPUT=$(git merge --no-commit --no-ff origin/$branch 2>&1 || true) # Both standard output and errors (2>&1) are redirected to the variable MERGE_OUTPUT
-              if echo "$MERGE_OUTPUT" | grep -q "CONFLICT"; then
-                # Capture the conflict files
-                CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
+              MERGE_OUTPUT=$(git merge --no-commit --no-ff origin/$branch 2>&1)
+              MERGE_EXIT_CODE=$?
+
+              if [ "$MERGE_EXIT_CODE" -ne 0] || echo "$MERGE_OUTPUT" | grep -q "CONFLICT"; then
                 echo "Conflicts in branch $branch:"
+                git merge --abort || true
+                CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
                 echo "$CONFLICT_FILES"
               else
-                # No conflicts but the branch cannot be fast-forwarded
                 echo "$branch" >> conflict_free_diverged_branches.txt
                 echo "Branch $branch has no conflict but cannot be fast-forwarded."
               fi
