@@ -9,14 +9,23 @@ Docker Basics 는 Docker 를 학습하고 활용하기 위한 자율 스터디 �
 - Pull Request 기반 자율 학습: 학습한 내용을 개인 main 브랜치로 병합하며 공유합니다.
 - 주 1회 이상 참여 권장: 학습 분량에 상관없이 꾸준히 참여하는데 이의를 둡니다.
 
-# How to learn
+# 학습하기
+
+이 단락에서는 Docker Basics 레포지토리를 사용하여 학습하는 방법을 설명합니다.
 
 ## 처음 시작하기
 
-1. main branch 로부터 자신만의 main 브랜치를 생성한다.
-   - 브랜치 이름은 다음과 같이 설정한다: 본인 이름/main
-   - 예시: sbk/main
+처음 시작하는 경우 `main` 으로부터 개인 main 브랜치를 생성하여야 합니다.
 
+모든 학습 내용은 개인 main 브랜치에 병합하여 관리합니다.
+`main` 브랜치는 레포지토리 전체에 대한 변경이 있을 경우 수정합니다.
+
+> [!NOTE]
+> `main` 브랜치란?: Git 으로 레포지토리를 생성할 때 생기는 기본 브랜치(default branch)입니다.
+
+1. `main` 브랜치로부터 자신만의 main 브랜치를 생성한다.
+   - 브랜치 이름은 다음과 같이 설정한다: *<본인_이름_이니셜>*/main
+   - 예시: sbk/main
    1. main 브랜치로 checkout
       ```bash
       git checkout main
