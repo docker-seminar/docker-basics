@@ -45,10 +45,14 @@ Docker Basics 는 Docker 를 학습하고 활용하기 위한 자율 스터디 �
 
 ## 진행하기
 
-1. 한 주제에 대해 브랜치를 생성한다
-   - 브랜치 이름은 다음과 같이 설정한다: 본인 이름/종류/브랜치 이름
+실제 학습을 진행할 때는 PR 생성을 위해 별도의 브랜치를 생성합니다.
+
+1. 한 주제에 대해 브랜치를 생성한다.
+   - 브랜치 이름은 다음과 같이 설정한다: 본인 <이니셜>/<종류>/<브랜치 이름>
    - 예시 브랜치 이름: sbk/docs/what-is-docker
-   - sbk 가, 문서 작업 (주로 `.md` 파일), what-is-docker 내용 수정하는 브랜치
+      - sbk 가, 문서 작업 (주로 `.md` 파일), what-is-docker 내용 수정하는 브랜치
+   - 필요한 경우 더 세분화해도 무방하다: sbk/docs/docker-concepts/registry
+      - sbk 가, 문서 작업, docker-concepts 의 registry 단락을 수정하는 브랜치
 2. 해당 주제에 포함된 링크로 들어간다. (필요한 경우 브라우저의 번역 기능을 이용)
 3. 마크다운을 이용해 페이지의 내용을 정리한다.
     - [깃허브 마크다운 안내](https://docs.github.com/ko/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) (
@@ -57,6 +61,7 @@ Docker Basics 는 Docker 를 학습하고 활용하기 위한 자율 스터디 �
 4. Commit, push 그리고 pull request 를 생성한다.
    - PR 생성 시에 base 는 자신의 main 브랜치로 지정한다.
    - 예시: sbk/main <- sbk/docs/what-is-docker
+5. PR 이 병합될 수 있게 적극적으로 리뷰 및 변경 요청에 대한 대응을 한다.
 
 ## Git Graph
 
