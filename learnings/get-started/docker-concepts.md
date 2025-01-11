@@ -491,7 +491,80 @@ https://docs.docker.com/get-started/docker-concepts/building-images/multi-stage-
 
 ## Publishing and exposing ports
 
+### The purpose of publishing and exposing ports
+One key feature of containers is their isolation from the host machine.
+However, this isolation can make it inconvenient to access a web application through a browser.
+
+### Publishing ports
+Publishing a port sets up a forwarding rule between the host and the container.
+This is done during container creation using the -p (or --publish) flag with docker run.
+```bash
+docker run -d -p HOST_PORT:CONTAINER_PORT nginx
+
+# If we publish the container's port 80 to host port 8080
+docker run -d -p 8080:80 nginx
+```
+**Be mindful of publishing databases or any sensitive information.**
+```bash
+# Create a private network
+docker network create internal-net
+
+# Run a database container within the private network (no external access)
+docker run -d --network internal-net --name db mysql
+```
+
+#### Publishing to ephemeral ports
+Sometimes, you may not want to specify a host port and prefer Docker to choose a random available port.
+To do this, omit the HOST_PORT during container creation.
+```bash
+# Docker will randomly assign an available host port to container port 80
+docker run -d -p 80 nginx
+```
+
+### Publishing all ports
+By default, even if ports are exposed in the Dockerfile, they are not automatically published.
+Using the -P or --publish-all flag will publish all exposed ports to randomly assigned host ports, helping to avoid port conflicts.
+```bash
+ docker run -P nginx
+```
+
+### Difference Between Exposing and Publishing Ports
+**Exposing Ports (EXPOSE)**
+Declares which port the container will listen on at runtime. This does not make the port accessible from the host or other machines.
+
+**Publishing Ports (-p or -P)**
+Maps the container's port to a port on the host, making it accessible externally.
+
+```bash
+EXPOSE 80
+
+# This does NOT make port 80 accessible externally
+docker run -d nginx
+
+# This makes port 80 in the container accessible via port 8080 on the host
+docker run -d -p 8080:80 nginx
+```
+
+### Port mapping with docker compose
+Using docker compose simplifies port publishing for multi-container setups.
+```YAML
+# docker-compose.yml
+version: '3'
+services:
+  web:
+    image: nginx
+    ports:
+      - "8080:80"
+```
+```bash
+# Host port 8080 maps to container port 80.
+docker-compose up -d
+```
+
+### 실습
 https://docs.docker.com/get-started/docker-concepts/running-containers/publishing-ports/
+
+-----
 
 ## Overriding container defaults
 
