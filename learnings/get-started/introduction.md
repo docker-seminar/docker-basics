@@ -1,11 +1,7 @@
-# Docker Desktop
+# Introduction
 
-- **Docker Desktop**은 macOS, Windows, Linux에서 컨테이너화된 애플리케이션과 마이크로서비스를 구축, 공유, 실행할 수 있는 올인원 애플리케이션
-- 직관적인 그래픽 사용자 인터페이스(GUI)를 통해 로컬 머신에서 컨테이너, 애플리케이션, 이미지를 직접 관리할 수 있음
+# Get Docker Desktop
 
-## Docker Desktop 의 주요 기능
+# Develop with containers
 
-- **크로스 플랫폼 지원**: macOS, Windows, Linux 에서 사용 가능하며 다양한 운영 체제에서 일관된 개발 경험을 제공
-- **통합 도구**: Docker Engine, Docker CLI 클라이언트, Docker Compose, Kubernetes 등을 포함한 컨테이너 관리를 위한 종합적 도구 모음 제공
-- **사용자 친화적인 인터페이스**: 컨테이너, 이미지, 애플리케이션을 직접 관리할 수 있는 그래픽 사용자 인터페이스를 제공
-- **간소화된 설정**: 포트 매핑, 파일 시스템 문제 등 복잡한 설정을 처리하여 개발자가 코드 작성에 집중할 수 있도록 도움
+# Build and push your first image
