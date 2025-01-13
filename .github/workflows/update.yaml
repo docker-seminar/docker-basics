@@ -78,6 +78,7 @@ jobs:
               # Create a temporary branch from 'main' to test the merge
               git checkout -b temp-merge-branch $MAIN_BRANCH_SHA
 
+              echo "Trying to merge $branch into main"
               MERGE_OUTPUT=$(git merge --no-commit --no-ff origin/$branch 2>&1)
               MERGE_EXIT_CODE=$?
 
