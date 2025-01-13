@@ -83,7 +83,7 @@ jobs:
               MERGE_EXIT_CODE=$?
 
               echo "Trying to process merge result..."
-              if [ "$MERGE_EXIT_CODE" -ne 0 ] || echo "$MERGE_OUTPUT" | grep -q "CONFLICT"; then
+              if [ "$MERGE_EXIT_CODE" -ne 0 ] || git diff --name-only --diff-filter=U | grep -q .; then
                 echo "Conflicts in branch $branch:"
                 git merge --abort || true
                 CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
