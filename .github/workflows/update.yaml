@@ -79,7 +79,7 @@ jobs:
               git checkout -b temp-merge-branch $MAIN_BRANCH_SHA
 
               echo "Trying to merge $branch into main"
-              MERGE_OUTPUT=$(git merge --no-commit --no-ff origin/$branch 2>&1)
+              MERGE_OUTPUT=$(git merge --no-commit --no-ff origin/$branch 2>&1 || true)
               MERGE_EXIT_CODE=$?
 
               echo "Trying to process merge result..."
