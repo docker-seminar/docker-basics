@@ -1,15 +1,31 @@
 # Docker Basics
 
-도커 기초 익히기
+Docker Basics 는 Docker 를 학습하고 활용하기 위한 자율 스터디 공간입니다.
 
-# How to learn
+스터디는 다음과같이 진행됩니다:
+
+- 공식 문서 기반 이론 학습: Docker 공식 문서를 읽고 이해한 내용을 본인만의 언어로 정리합니다.
+- 실습 과정: (제작중)
+- Pull Request 기반 자율 학습: 학습한 내용을 개인 main 브랜치로 병합하며 공유합니다.
+- 주 1회 이상 참여 권장: 학습 분량에 상관없이 꾸준히 참여하는데 이의를 둡니다.
+
+# 학습하기
+
+이 단락에서는 Docker Basics 레포지토리를 사용하여 학습하는 방법을 설명합니다.
 
 ## 처음 시작하기
 
-1. main branch 로부터 자신만의 main 브랜치를 생성한다.
-   - 브랜치 이름은 다음과 같이 설정한다: 본인 이름/main
-   - 예시: sbk/main
+처음 시작하는 경우 `main` 으로부터 개인 main 브랜치를 생성하여야 합니다.
 
+모든 학습 내용은 개인 main 브랜치에 병합하여 관리합니다.
+`main` 브랜치는 레포지토리 전체에 대한 변경이 있을 경우 수정합니다.
+
+> [!NOTE]
+> `main` 브랜치란?: Git 으로 레포지토리를 생성할 때 생기는 기본 브랜치(default branch)입니다.
+
+1. `main` 브랜치로부터 자신만의 main 브랜치를 생성한다.
+   - 브랜치 이름은 다음과 같이 설정한다: *<본인_이름_이니셜>*/main
+   - 예시: sbk/main
    1. main 브랜치로 checkout
       ```bash
       git checkout main
@@ -29,10 +45,14 @@
 
 ## 진행하기
 
-1. 한 주제에 대해 브랜치를 생성한다
-   - 브랜치 이름은 다음과 같이 설정한다: 본인 이름/종류/브랜치 이름
+실제 학습을 진행할 때는 PR 생성을 위해 별도의 브랜치를 생성합니다.
+
+1. 한 주제에 대해 브랜치를 생성한다.
+   - 브랜치 이름은 다음과 같이 설정한다: 본인 <이니셜>/<종류>/<브랜치 이름>
    - 예시 브랜치 이름: sbk/docs/what-is-docker
-   - sbk 가, 문서 작업 (주로 `.md` 파일), what-is-docker 내용 수정하는 브랜치
+      - sbk 가, 문서 작업 (주로 `.md` 파일), what-is-docker 내용 수정하는 브랜치
+   - 필요한 경우 더 세분화해도 무방하다: sbk/docs/docker-concepts/registry
+      - sbk 가, 문서 작업, docker-concepts 의 registry 단락을 수정하는 브랜치
 2. 해당 주제에 포함된 링크로 들어간다. (필요한 경우 브라우저의 번역 기능을 이용)
 3. 마크다운을 이용해 페이지의 내용을 정리한다.
     - [깃허브 마크다운 안내](https://docs.github.com/ko/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax) (
@@ -41,6 +61,7 @@
 4. Commit, push 그리고 pull request 를 생성한다.
    - PR 생성 시에 base 는 자신의 main 브랜치로 지정한다.
    - 예시: sbk/main <- sbk/docs/what-is-docker
+5. PR 이 병합될 수 있게 적극적으로 리뷰 및 변경 요청에 대한 대응을 한다.
 
 ## Git Graph
 
