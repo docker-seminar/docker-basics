@@ -54,7 +54,31 @@
 
 ## Registry
 
-https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-registry/
+> [!NOTE]
+> Docker 레지스트리는 컨테이너 이미지를 저장하고 공유하는 중앙 저장소
+
+### 레지스트리와 레포지토리의 차이점:
+
+| 용어    | 설명                                                                                             | 예시                                |
+|-------|------------------------------------------------------------------------------------------------|:----------------------------------|
+| 레지스트리 | 컨테이너 이미지를 저장하고 관리하는 중앙 저장소.                                                                    | Docker Hub, Amazon ECR, Azure ACR |
+| 레포지토리 | 레지스트리 내에서 관련된 컨테이너 이미지들을 모아놓은 컬렉션. 프로젝트별로 이미지를 조직하는 폴더와 유사. 각 레포지토리는 하나 이상의 컨테이너 이미지를 포함할 수 있음 | library/ubuntu, library/nginx     |
+
+### 주요 레지스트리
+
+- Docker Hub: 가장 널리 사용되는 공개 레지스트리
+- Amazon Elastic Container Registry (ECR)
+- Azure Container Registry (ACR)
+- Google Container Registry (GCR)
+
+> [!NOTE]
+> 공개 레지스트리: 누구나 접근하여 컨테이너 이미지를 업로드하고 다운로드 할 수 있는 저장소
+
+### 레지스트리 사용의 장점
+
+- 이미지 공유
+- 버전 관리
+- 배포 용이성
 
 ## Docker Compose
 
