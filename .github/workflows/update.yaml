@@ -81,7 +81,7 @@ jobs:
               MERGE_OUTPUT=$(git merge --no-commit --no-ff origin/$branch 2>&1)
               MERGE_EXIT_CODE=$?
 
-              if [ "$MERGE_EXIT_CODE" -ne 0] || echo "$MERGE_OUTPUT" | grep -q "CONFLICT"; then
+              if [ "$MERGE_EXIT_CODE" -ne 0 ] || echo "$MERGE_OUTPUT" | grep -q "CONFLICT"; then
                 echo "Conflicts in branch $branch:"
                 git merge --abort || true
                 CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
