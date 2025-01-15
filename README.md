@@ -149,6 +149,11 @@ Git Hooks 중 `commit-msg` hook 을 사용하여 메세지 내용 하단에 현�
    chmod +x infra/git/hooks/*
    ```
 
+3. JetBrains 제품에서 사용하는 방법:
+
+- 위 과정을 정상적으로 진행한 경우 커밋 설정에서 활성화 가능
+- ![img.png](docs/images/jetbrains-git-hook.png)
+
 # Docker in GitHub
 
 https://github.com/docker/build-push-action
