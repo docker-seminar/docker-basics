@@ -119,6 +119,41 @@ gitGraph
 
 - [해당 파일](./learnings/README.md)을 참조하여 진행
 
+# 기여 가이드
+
+## Git Hooks
+
+[Git Hooks 공식 문서](https://git-scm.com/book/ms/v2/Customizing-Git-Git-Hooks)
+
+Git Hooks 중 `commit-msg` hook 을 사용하여 메세지 내용 하단에 현재 작업중인 이슈 번호를 참조할 수 있습니다.
+
+조건은 다음과 같습니다:
+
+- 현재 작업중인 브랜치가 *카테고리/이슈 번호* (예: infra/123) 형식의 브랜치일 것
+- 현재 커밋에 해당 이슈 번호가 참조되지 않았을 것
+
+### Git Hooks 활성화 방법
+
+일반적으로 Git Hooks 의 기본 경로는 `.git/hooks` 기 때문에 git 으로 공유되지 않습니다.
+
+현 레포지토리에서는 `infra/git/hooks` 경로를 사용중입니다.
+해당 경로로 Git Hooks 의 경로를 변경하기 위해서는 다음과 같은 설정이 필요합니다.
+
+1. 아래의 명령어를 통해 Git Hooks 의 기본 경로를 레포지토리의 경로와 일치시킵니다.
+   ```bash
+   git config core.hooksPath infra/git/hooks
+   ```
+
+2. 아래의 명령어를 통해 해당 경로의 파일들이 실행 가능하게 합니다.
+   ```bash
+   chmod +x infra/git/hooks/*
+   ```
+
+3. JetBrains 제품에서 사용하는 방법:
+
+- 위 과정을 정상적으로 진행한 경우 커밋 설정에서 활성화 가능
+- ![img.png](docs/images/jetbrains-git-hook.png)
+
 # Docker in GitHub
 
 https://github.com/docker/build-push-action
