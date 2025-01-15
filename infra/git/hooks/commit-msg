@@ -12,6 +12,17 @@ if [[ $branch_name =~ ^[a-z]+/[0-9]+$ ]]; then
   commit_msg_file=$1
   commit_msg=$(cat "$commit_msg_file")
 
+  # Check if the commit message starts with:
+  # - 'feat:'
+  # - 'docs:'
+  # - 'infra:'
+  # - 'temp'
+  # - Or optional scope, e.g., 'infra(GitOps):'
+  if [[ ! $commit_msg =~ ^(feat(:|\(.*\):)|docs(:|\(.*\):)|infra(:|\(.*\):)|temp) ]]; then
+    echo "Error: Commit message must start with 'feat:', 'docs:', 'infra:', 'temp', or include an optional scope (e.g., 'infra(GitOps):')."
+    exit 1
+  fi
+
   # Check if the commit message already mentions the issue number
   if ! grep -q "#$issue_number" <<< "$commit_msg"; then
     # Add the issue number to the end of the commit message with one line break
