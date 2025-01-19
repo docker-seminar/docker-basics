@@ -105,9 +105,81 @@ https://docs.docker.com/get-started/docker-concepts/building-images/
 
 ## Understanding the image layers
 
+컨테이너 이미지는 여러 계층(layer)으로 구성되며, 계층은 한 번 생성되면 변경할 수 없습니다(불변성).
+
+### Image Layers
+
+이미지의 각 계층은 파일 시스템의 변경 사항을 포함합니다.
+이 변경 사항은 추가, 삭제 또는 수정이 될 수 있습니다.
+
+1. 첫 번째 계층: 기본 명령어와 패키지 관리자를 추가합니다(예: apt).
+2. 두 번째 계층: Python 런타임과 pip을 설치하여 의존성 관리가 가능하게 합니다.
+3. 세 번째 계층: 애플리케이션의 특정 requirements.txt 파일을 복사합니다.
+4. 네 번째 계층: 애플리케이션의 특정 의존성들을 설치합니다.
+5. 다섯 번째 계층: 실제 애플리케이션의 소스 코드를 복사합니다.
+
+각 계층은 서로 다른 변경 사항을 포함하고 있으며,
+이러한 계층들은 하나씩 쌓여서 최종적으로 컨테이너가 사용할 수 있는 파일 시스템을 구성하게 됩니다.
+
+이로 인해 불필요한 중복을 줄이고, 여러 애플리케이션에서 공통된 부분을 효율적으로 재사용할 수 있어,
+이미지 관리와 배포가 더 효율적이고 경제적으로 이루어집니다.
+
+### Stacking the Layers
+
+계층화는 콘텐츠 주소 지정 저장소(content-addressable storage)와 유니온 파일 시스템(union filesystem) 덕분에 가능해집니다.
+
+1. 각 계층이 다운로드되면, 해당 계층은 호스트 파일 시스템의 별도의 디렉토리에 추출됩니다.
+2. 이미지를 기반으로 컨테이너를 실행하면, 유니온 파일 시스템이 생성되어 계층들이 서로 위에 쌓이게 됩니다.
+   이렇게 하면 새로운 통합된 뷰가 만들어집니다.
+3. 컨테이너가 시작될 때, 루트 디렉토리는 이 통합된 디렉토리 위치로 설정됩니다.
+   이를 위해 chroot 명령어가 사용됩니다.
+
+유니온 파일 시스템이 생성될 때, 이미지 계층 외에도 실행 중인 컨테이너를 위한 디렉토리가 생성됩니다.
+이를 통해 컨테이너는 파일 시스템 변경을 할 수 있으면서, 원본 이미지 계층은 그대로 유지됩니다.
+이 덕분에 동일한 기본 이미지를 기반으로 여러 컨테이너를 실행할 수 있게 됩니다.
+이 방식은 여러 컨테이너가 동일한 이미지에서 시작되면서도 각각 독립적으로 파일 시스템을 수정할 수 있도록 해 줍니다.
+
 https://docs.docker.com/get-started/docker-concepts/building-images/understanding-image-layers/
 
 ## Writing a Dockerfile
+
+Dockerfile은 컨테이너 이미지를 생성하는 데 사용되는 텍스트 기반의 문서입니다.
+
+```dockerfile
+FROM python:3.12
+WORKDIR /usr/local/app
+
+# 애플리케이션 의존성 설치
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 소스 코드 복사
+COPY src ./src
+EXPOSE 5000
+
+# 루트 사용자 대신 애플리케이션 사용자 설정
+RUN useradd app
+USER app
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+```
+
+이 Dockerfile은 Python 3.12 이미지를 기본 이미지로 사용하고,
+애플리케이션의 의존성을 설치하고 소스 코드를 복사한 후,
+컨테이너가 실행될 때 필요한 명령을 설정합니다.
+
+### 자주 사용하는 명령어들
+
+| 명령어                        | 설명                                                                 |
+| ----------------------------- | -------------------------------------------------------------------- |
+| FROM <image>                  | 빌드가 확장할 기본 이미지를 지정합니다.                              |
+| WORKDIR <path>                | 파일이 복사되고 명령어가 실행될 작업 디렉토리를 지정합니다.          |
+| COPY <host-path> <image-path> | 호스트에서 파일을 복사하여 컨테이너 이미지의 지정된 경로에 넣습니다. |
+| RUN <command>                 | 지정된 명령어를 실행합니다.                                          |
+| ENV <name> <value>            | 실행 중인 컨테이너가 사용할 환경 변수를 설정합니다.                  |
+| EXPOSE <port-number>          | 이미지가 노출하고 싶은 포트를 설정합니다.                            |
+| USER <user-or-uid>            | 이후의 명령어들이 실행될 기본 사용자를 설정합니다.                   |
+| CMD ["<command>", "<arg1>"]   | 이 이미지를 사용하는 컨테이너가 실행할 기본 명령을 설정합니다.       |
 
 https://docs.docker.com/get-started/docker-concepts/building-images/writing-a-dockerfile/
 
