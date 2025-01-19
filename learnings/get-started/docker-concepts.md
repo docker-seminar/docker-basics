@@ -143,6 +143,44 @@ https://docs.docker.com/get-started/docker-concepts/building-images/understandin
 
 ## Writing a Dockerfile
 
+Dockerfile은 컨테이너 이미지를 생성하는 데 사용되는 텍스트 기반의 문서입니다.
+
+```dockerfile
+FROM python:3.12
+WORKDIR /usr/local/app
+
+# 애플리케이션 의존성 설치
+COPY requirements.txt ./
+RUN pip install --no-cache-dir -r requirements.txt
+
+# 소스 코드 복사
+COPY src ./src
+EXPOSE 5000
+
+# 루트 사용자 대신 애플리케이션 사용자 설정
+RUN useradd app
+USER app
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8080"]
+```
+
+이 Dockerfile은 Python 3.12 이미지를 기본 이미지로 사용하고,
+애플리케이션의 의존성을 설치하고 소스 코드를 복사한 후,
+컨테이너가 실행될 때 필요한 명령을 설정합니다.
+
+### 자주 사용하는 명령어들
+
+| 명령어                        | 설명                                                                 |
+| ----------------------------- | -------------------------------------------------------------------- |
+| FROM <image>                  | 빌드가 확장할 기본 이미지를 지정합니다.                              |
+| WORKDIR <path>                | 파일이 복사되고 명령어가 실행될 작업 디렉토리를 지정합니다.          |
+| COPY <host-path> <image-path> | 호스트에서 파일을 복사하여 컨테이너 이미지의 지정된 경로에 넣습니다. |
+| RUN <command>                 | 지정된 명령어를 실행합니다.                                          |
+| ENV <name> <value>            | 실행 중인 컨테이너가 사용할 환경 변수를 설정합니다.                  |
+| EXPOSE <port-number>          | 이미지가 노출하고 싶은 포트를 설정합니다.                            |
+| USER <user-or-uid>            | 이후의 명령어들이 실행될 기본 사용자를 설정합니다.                   |
+| CMD ["<command>", "<arg1>"]   | 이 이미지를 사용하는 컨테이너가 실행할 기본 명령을 설정합니다.       |
+
 https://docs.docker.com/get-started/docker-concepts/building-images/writing-a-dockerfile/
 
 ## Build, tag, and publish an image
