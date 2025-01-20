@@ -5,7 +5,6 @@
 ## Container
 
 **컨테이너(Container)** : 애플리케이션과 그 실행에 필요한 모든 파일, 라이브러리, 설정을 포함하는 독립적이고 가벼운 실행 환경
-
 ### 컨테이너의 주요 특징
 #### 1. 격리 실행
 각 컨테이너는 독립적으로 실행되며, 호스트 시스템 및 다른 컨테이너와 간섭 없이 동작
@@ -47,6 +46,12 @@ Windows와 macOS에서 Docker 컨테이너를 실행하기 위해 내부적으�
 
 ### 실습
 https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-container/
+![alt text](image-1.png)
+
+![alt text](image.png)
+
+![alt text](image-2.png)
+
 -----
 
 ## Image
@@ -72,6 +77,7 @@ https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-contain
 ### 실습
 https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/
 
+![alt text](image-3.png)
 -----
 
 ## Registry
@@ -90,6 +96,13 @@ https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-an-image/
 
 ### 실습
 https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-a-registry/
+
+![alt text](image-4.png)
+
+![alt text](image-5.png)
+
+![alt text](image-6.png)
+
 
 #### 1. Docker Hub에 Repository 만들기
 #### 2. 이미지 빌드
@@ -115,7 +128,7 @@ docker push <YOUR_DOCKER_USERNAME>/docker-quickstart:1.0
 ```
 
 #### 5. Docker Hub 저장소 - Tags에서 확인 가능
-
+![alt text](image-7.png)
 -----
 
 ## Docker Compose
@@ -133,6 +146,11 @@ Docker Compose를 사용하면 모든 컨테이너와 해당 구성을 **단일 
 ### 실습
 https://docs.docker.com/get-started/docker-concepts/the-basics/what-is-docker-compose/
 
+![alt text](image-8.png)
+
+![alt text](image-10.png)
+
+![alt text](image-11.png)
 -----
 
 # Building Images
